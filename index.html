@@ -1,102 +1,133 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@4.9.1/dist/ionic/ionic.esm.js"></script>
-  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@4.9.1/dist/ionic/ionic.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@4.9.1/css/ionic.bundle.css"/>
-  
-  <script src="cordova.js"></script>
-  <script src="gallery.js"></script>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <title>Deportes!</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@4.11.0/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@4.11.0/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@4.11.0/css/ionic.bundle.css"/>
+
+  <script src="cordova.js"></script>
+  <script src="todo.js"></script>
   
+  <title>ToDo List !</title>
 </head>
 
-<body onLoad="onLoad()">
-  
+<body onload="onLoad()">
+
   <ion-app>
   
-    <ion-header>
-  
-      <ion-toolbar color="dark">
-        <ion-title>Deportes!</ion-title>
-        <ion-buttons slot="primary">          
-          <ion-button onclick="play()"><ion-icon slot="icon-only" name="play"></ion-icon></ion-button>
-          <ion-button onclick="previous()"><ion-icon slot="icon-only" name="skip-backward"></ion-icon></ion-button>
-          <ion-button onclick="pause()"><ion-icon slot="icon-only" name="pause"></ion-icon></ion-button>
-          <ion-button onclick="next()"><ion-icon slot="icon-only" name="skip-forward"></ion-icon></ion-button>                    
-        </ion-buttons>
-      </ion-toolbar>
-      
-      <ion-toolbar>
-        <ion-item>
-          <ion-range min="0" max="5000" value="4000">
-            <ion-icon slot="start" size="small" name="speedometer"></ion-icon>
-            <ion-icon slot="end" name="speedometer"></ion-icon>
-          </ion-range>
-        </ion-item>
-      </ion-toolbar>    
-      
-      <ion-toolbar color="dark">
-        <ion-buttons slot="start">          
-            <ion-button onclick="capturePhoto()"><ion-icon slot="icon-only" name="camera"></ion-icon></ion-button>            
-            <ion-button onclick="getPhoto(pictureSource.PHOTOLIBRARY);"><ion-icon slot="icon-only" name="image"></ion-icon></ion-button>            
-        </ion-buttons>
-        <ion-buttons slot="end">          
-            <ion-button onclick="presentAlertIonic()"><ion-icon slot="icon-only" name="help-circle"></ion-icon></ion-button>
-            <ion-button onclick="salir()"><ion-icon slot="icon-only" name="exit"></ion-icon></ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-      
-    </ion-header>
+    <ion-menu content-id="content">
     
-    <ion-content>
-    
-      <ion-tabs>
-        <ion-tab tab="futbol">
-          <ion-slides id="futbol">
-            <ion-slide><img id="smallImage" src="" /></ion-slide>
-            <ion-slide><img src="img/futbol1.jpg" /></ion-slide>
-            <ion-slide><img src="img/futbol2.jpg" /></ion-slide>
-            <ion-slide><img src="img/futbol3.jpg" /></ion-slide>
-          </ion-slides>
-        </ion-tab>
-        <ion-tab tab="tenis">
-          <ion-slides id="tenis">
-            <ion-slide><img src="img/tenis1.jpg" /></ion-slide>
-            <ion-slide><img src="img/tenis2.jpg" /></ion-slide>
-            <ion-slide><img src="img/tenis3.jpg" /></ion-slide>
-          </ion-slides>
-        </ion-tab>
-        <ion-tab tab="baloncesto">
-          <ion-slides id="baloncesto">
-            <ion-slide><img src="img/baloncesto1.jpg" /></ion-slide>
-            <ion-slide><img src="img/baloncesto2.jpg" /></ion-slide>
-            <ion-slide><img src="img/baloncesto3.jpg" /></ion-slide>
-          </ion-slides>
-        </ion-tab>
-        
-        <ion-tab-bar slot="bottom">
-          <ion-tab-button tab="futbol">
-            <ion-icon name="football"></ion-icon>
-            <ion-label>Fútbol</ion-label>
-          </ion-tab-button>
-          <ion-tab-button tab="tenis">
-            <ion-icon name="tennisball"></ion-icon>
-            <ion-label>Tenis</ion-label>
-          </ion-tab-button>
-          <ion-tab-button tab="baloncesto">
-            <ion-icon name="basketball"></ion-icon>
-            <ion-label>Baloncesto</ion-label>
-          </ion-tab-button>
-        </ion-tab-bar>
-      </ion-tabs>
+      <ion-header>
+        <ion-toolbar mode="md" color="secondary">
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>  
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
       
-    </ion-content>
+      <ion-content>
+        <ion-menu-toggle>
+          <ion-list lines="full">
+            <ion-item-divider>
+              <ion-label>Reordenar y Compartir</ion-label>
+            </ion-item-divider>
+            <ion-item onclick="toggleReorder()">
+              <ion-label>Activar/Desactivar reordenar</ion-label>
+              <ion-icon slot="end" name="reorder"></ion-icon>
+            </ion-item>
+            <ion-item onclick="share()">
+              <ion-label>Compartir</ion-label>
+              <ion-icon slot="end" name="share"></ion-icon>
+            </ion-item>
+            <ion-item-divider>
+              <ion-label>Eliminar</ion-label>
+            </ion-item-divider>          
+            <ion-item onclick="deleteItem()">
+              <ion-label>Eliminar todo</ion-label>
+              <ion-icon slot="end" name="trash" color="danger"></ion-icon>
+            </ion-item>
+            <ion-item-divider>
+              <ion-label>Salir</ion-label>
+            </ion-item-divider>          
+            <ion-item onclick="salirApp()">
+              <ion-label>Salir</ion-label>
+              <ion-icon slot="end" name="exit"></ion-icon>
+            </ion-item>
+          </ion-list>
+        </ion-menu-toggle>
+      </ion-content>
+      
+    </ion-menu>
+
+    <div class="ion-page" id="content">
+    
+      <ion-header>
+        <ion-toolbar mode="md" color="primary">
+          <ion-buttons slot="start">
+            <ion-button>
+              <ion-menu-button></ion-menu-button>
+            </ion-button>
+          </ion-buttons>          
+          <ion-title>ToDo List!</ion-title>
+          <ion-buttons slot="end">
+          	<ion-button onclick="deleteItem()">
+              <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button onclick="toggleReorder()">
+              <ion-icon name="reorder" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button onclick="addEditItem()">
+              <ion-icon name="add" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>            
+        </ion-toolbar>
+      </ion-header>
+      
+      <ion-content>
+        <ion-tabs>
+          <ion-tab tab="home">
+            <ion-list lines="full">
+              <ion-reorder-group></ion-reorder-group>
+            </ion-list>
+          </ion-tab>
+          <ion-tab tab="school">
+            <ion-list lines="full">
+              <ion-reorder-group></ion-reorder-group>
+            </ion-list>
+          </ion-tab>
+          <ion-tab tab="expenses">
+            <ion-list lines="full">
+              <ion-reorder-group></ion-reorder-group>
+            </ion-list>
+          </ion-tab>
+          <ion-tab tab="other">
+            <ion-list lines="full">
+              <ion-reorder-group></ion-reorder-group>
+            </ion-list>
+          </ion-tab>
+          <ion-tab-bar slot="bottom" color="primary">
+            <ion-tab-button tab="home">
+              <ion-icon name="home"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="school">
+              <ion-icon name="school"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="expenses">
+              <ion-icon name="logo-euro"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="other">
+              <ion-icon name="snow"></ion-icon>
+            </ion-tab-button>
+          </ion-tab-bar>
+        </ion-tabs>
+      </ion-content>
+      
+    </div>
     
   </ion-app>
   

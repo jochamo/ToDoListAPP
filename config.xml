@@ -2,13 +2,13 @@
 
 <widget xmlns = "http://www.w3.org/ns/widgets"
 	 xmlns:gap = "http://phonegap.com/ns/1.0"
-	 id = "com.jochamo.gallery"
+	 id = "com.jochamo.todolist"
 	 versionCode = "1"
 	 version = "0.0.1" >
 
-	<name>Galeria!</name>
+	<name>ToDo List!</name>
 
-	<description>Not a simple gallery!</description>
+	<description>Not a simple ToDo List!</description>
 
 	<author href="http://informatica.desecundaria.com" email="jochamo@gmail.com">
 		Jose Chamorro Molina
@@ -20,11 +20,5 @@
 	
 	<plugin name="cordova-plugin-whitelist" />
 	<plugin name="cordova-plugin-vibration" />
-	<plugin name="cordova-plugin-exitapp" />
-	<plugin name="cordova-plugin-camera" />
-	
-	<feature name="Camera">
-    	<param name="android-package" value="org.apache.cordova.CameraLauncher" />
-	</feature>
 	
 </widget>

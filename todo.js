@@ -28,8 +28,8 @@ function printList(tab) {
         `<ion-item-sliding>
            <ion-item onClick="addEditItem(`+index+`)">
              <ion-label text-wrap>
-               <h2>`+item.text+`</h2>
                <p>`+item.date.slice(0,10)+`</p>
+			   <h2>`+item.text+`</h2>               
              </ion-label>
              <ion-icon slot="end" name="`+item.icon+`"></ion-icon>
              <ion-reorder slot="end"></ion-reorder>
@@ -68,14 +68,14 @@ function addEditItem(index = false) {
     let item = null;
 
     if (index !== false) item = list[index];
-    else item = { text:"", date:new Date().toISOString(), icon:"radio-button-off" };
+    else item = { date:new Date().toISOString(), text:"", icon:"radio-button-off" };
 
     const modal = document.createElement('ion-modal');
     modal.component = document.createElement('div');
     modal.component.innerHTML = `
         <ion-header>
             <ion-toolbar>
-                <ion-title>ToDo - `+(index !== false ? 'Edit task' : 'New task')+`</ion-title>
+                <ion-title>`+(index !== false ? 'Editar tarea' : 'Nueva tarea')+`</ion-title>
                 <ion-buttons slot="primary">
                     <ion-button color="danger"><ion-icon slot="icon-only" name="close"></ion-icon></ion-button>
                     <ion-button color="primary"><ion-icon slot="icon-only" name="checkmark"></ion-icon></ion-button>
@@ -85,11 +85,11 @@ function addEditItem(index = false) {
         <ion-content>
             <ion-list>
                 <ion-item>
-                    <ion-label position="floating">Select date</ion-label>
+                    <ion-label position="floating">Seleccionar fecha</ion-label>
                     <ion-datetime display-format="D MMM YYYY" max="2050-12-31" value="`+item.date+`"></ion-datetime>            
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating">Enter task</ion-label>
+                    <ion-label position="floating">Insertar tarea</ion-label>
                     <ion-input value="`+item.text+`"></ion-input>
                 </ion-item>
             </ion-list>
@@ -119,10 +119,10 @@ function addEditItem(index = false) {
         let newIcon = modal.component.querySelector('ion-segment').value;
 
         if (!newText.length) {
-            error('The task cannot be empty');
+            error('La tarea no puede estar vacía!');
         }
         else {
-            let newItem = { text:newText, date:newDate, icon:newIcon };
+            let newItem = { date:newDate, text:newText, icon:newIcon };
             if (index !== false) list[index] = newItem; 
             else list.unshift(newItem);
             saveList(getTab(), list);
@@ -147,11 +147,11 @@ function moveItem(indexes) {
 function deleteItem(index = false) {
     const alert = document.createElement('ion-alert');
   
-    alert.header = index !== false ? 'Delete item' : 'Delete all',
-    alert.message = 'Are you sure?',
+    alert.header = index !== false ? 'Eliminar tarea' : 'Eliminar todo',
+    alert.message = 'Esta seguro?',
     alert.buttons =  
             [{
-                text: 'YES',
+                text: 'SI',
                 handler: () => {
                     let list = getList();
                     if (index !== false) { list.splice(index, 1); }
@@ -165,4 +165,9 @@ function deleteItem(index = false) {
 
     document.querySelector('ion-app').appendChild(alert);
     alert.present();
+}
+
+//Salir de la aplicacion
+function salirApp(){
+	navigator.app.exitApp();
 }
