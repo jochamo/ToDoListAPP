@@ -26,9 +26,9 @@ function printList(tab) {
     getList(tab).forEach((item, index) => {
         tab.querySelector('ion-reorder-group').innerHTML +=
         `<ion-item-sliding>
-           <ion-item onClick="addEditItem(`+index+`)">
+           <ion-item onClick="addEditItem(`+index+`)" color="medium">
              <ion-label text-wrap>
-               <p>`+item.date.slice(0,10)+`</p>
+               <p>`+item.date.slice(0,10)+` [`+item.hour+`h]</p>
 			   <h2>`+item.text+`</h2>               
              </ion-label>
              <ion-icon slot="end" name="`+item.icon+`"></ion-icon>
@@ -67,8 +67,13 @@ function addEditItem(index = false) {
     let list = getList();
     let item = null;
 
+	//https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date/getHours
+	//https://norfipc.com/web/como-mostrar-fecha-hora-paginas-web-javascript.html
+	
+	let horaActual = new Date().getHours() + ":" + new Date().getMinutes();
+	
     if (index !== false) item = list[index];
-    else item = { date:new Date().toISOString(), text:"", icon:"radio-button-off" };
+    else item = { date:new Date().toISOString(), hour:horaActual, text:"", icon:"radio-button-off" };
 
     const modal = document.createElement('ion-modal');
     modal.component = document.createElement('div');
@@ -88,25 +93,62 @@ function addEditItem(index = false) {
                     <ion-label position="floating">Seleccionar fecha</ion-label>
                     <ion-datetime display-format="D MMM YYYY" max="2050-12-31" value="`+item.date+`"></ion-datetime>            
                 </ion-item>
+				<ion-item>
+					<ion-label position="floating">Seleccionar hora</ion-label>
+        			<ion-datetime class="hour" display-format="HH:mm" value="`+item.hour+`"></ion-datetime>
+      			</ion-item>
                 <ion-item>
-                    <ion-label position="floating">Insertar tarea</ion-label>
+                    <ion-label position="stacked">Insertar tarea</ion-label>
                     <ion-input value="`+item.text+`"></ion-input>
                 </ion-item>
             </ion-list>
             <ion-segment value="`+item.icon+`">
-                <ion-segment-button value="radio-button-off">
-                    <ion-icon name="radio-button-off"></ion-icon>
+                <ion-segment-button value="woman">
+                    <ion-icon name="woman"></ion-icon>
                 </ion-segment-button>  
-                <ion-segment-button value="radio-button-on">
-                    <ion-icon name="radio-button-on"></ion-icon>
+                <ion-segment-button value="heart">
+                    <ion-icon name="heart"></ion-icon>
                 </ion-segment-button>  
-                <ion-segment-button value="snow">
-                    <ion-icon name="snow"></ion-icon>
+                <ion-segment-button value="happy">
+                    <ion-icon name="happy"></ion-icon>
                 </ion-segment-button>
-                <ion-segment-button value="flame">
-                    <ion-icon name="flame"></ion-icon>
+                <ion-segment-button value="at">
+                    <ion-icon name="at"></ion-icon>
+                </ion-segment-button>
+				<ion-segment-button value="cart">
+                    <ion-icon name="cart"></ion-icon>
+                </ion-segment-button>  
+                <ion-segment-button value="car">
+                    <ion-icon name="car"></ion-icon>
+                </ion-segment-button>  
+                <ion-segment-button value="call">
+                    <ion-icon name="call"></ion-icon>
                 </ion-segment-button>
             </ion-segment>
+			
+			<ion-item>
+            <ion-label position="stacked">Seleccionar icono</ion-label>
+            <ion-select>
+              <ion-select-option value="woman"><ion-icon name="woman"></ion-icon>woman</ion-select-option>
+			  <ion-select-option value="heart"><ion-icon name="heart"></ion-icon>heart</ion-select-option>
+			  <ion-select-option value="happy"><ion-icon name="happy"></ion-icon>happy</ion-select-option>
+			  <ion-select-option value="at"><ion-icon name="at"></ion-icon>at</ion-select-option>
+			  <ion-select-option value="cart"><ion-icon name="cart"></ion-icon>cart</ion-select-option>
+			  <ion-select-option value="car"><ion-icon name="car"></ion-icon>car</ion-select-option>
+			  <ion-select-option value="call"><ion-icon name="call"></ion-icon>call</ion-select-option>
+            </ion-select>
+          </ion-item>
+		  
+		  <ion-item>
+            <ion-label position="stacked">Seleccionar categoria</ion-label>
+            <ion-select>
+              <ion-select-option value="woman"><ion-icon name="woman"></ion-icon>Hoy</ion-select-option>
+			  <ion-select-option value="heart"><ion-icon name="heart"></ion-icon>Casa</ion-select-option>
+			  <ion-select-option value="happy"><ion-icon name="happy"></ion-icon>Trabajo</ion-select-option>
+			  <ion-select-option value="at"><ion-icon name="at"></ion-icon>Gastos</ion-select-option>
+            </ion-select>
+          </ion-item>
+		  
         </ion-content>`;
 
     modal.component.querySelector('[color="danger"]').addEventListener('click', () => {
@@ -115,14 +157,15 @@ function addEditItem(index = false) {
 
     modal.component.querySelector('[color="primary"]').addEventListener('click', () => {
         let newDate = modal.component.querySelector('ion-datetime').value;
+		let newHour = modal.component.querySelector('.hour').value;
         let newText = modal.component.querySelector('ion-input').value;
         let newIcon = modal.component.querySelector('ion-segment').value;
 
         if (!newText.length) {
-            error('La tarea no puede estar vacía!');
+            error('La tarea no puede estar en blanco!');
         }
         else {
-            let newItem = { date:newDate, text:newText, icon:newIcon };
+            let newItem = { date:newDate, hour:newHour, text:newText, icon:newIcon };
             if (index !== false) list[index] = newItem; 
             else list.unshift(newItem);
             saveList(getTab(), list);
@@ -170,4 +213,9 @@ function deleteItem(index = false) {
 //Salir de la aplicacion
 function salirApp(){
 	navigator.app.exitApp();
+}
+
+//Cambiar una tarea de categoria
+function cambiarCategoria(){
+	
 }
