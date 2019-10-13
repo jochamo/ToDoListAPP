@@ -28,7 +28,7 @@ function printList(tab) {
         `<ion-item-sliding>
            <ion-item onClick="addEditItem(`+index+`)" color="medium">
              <ion-label text-wrap>
-               <p>`+item.date.slice(0,10)+` - `+item.hour+`</p>
+               <p>`+item.date.slice(0,10)+` (`+item.hour+`h)</p>
 			   <h2>`+item.text+`</h2>               
              </ion-label>
              <ion-icon slot="end" name="`+item.icon+`"></ion-icon>
@@ -70,8 +70,7 @@ function addEditItem(index = false) {
 	//https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date/getHours
 	//https://norfipc.com/web/como-mostrar-fecha-hora-paginas-web-javascript.html
 	
-	//let horaActual = new Date().getHours() + ":" + new Date().getMinutes();
-	let horaActual = "";
+	let horaActual = new Date().getHours() + ":" + new Date().getMinutes();
 	
     if (index !== false) item = list[index];
     else item = { date:new Date().toISOString(), hour:horaActual, text:"", icon:"radio-button-off" };
