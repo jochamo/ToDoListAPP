@@ -23,12 +23,12 @@ function saveList(tab, list) {
 function printList(tab) {
     tab.querySelector('ion-reorder-group').innerHTML = "";
 
-    getList(tab).forEach((item, index) => {
+	getList(tab).forEach((item, index) => {
         tab.querySelector('ion-reorder-group').innerHTML +=
         `<ion-item-sliding>
            <ion-item onClick="addEditItem(`+index+`)" color="medium">
              <ion-label text-wrap>
-               <p>`+item.date.slice(0,10)+` [`+item.hour+`h]</p>
+               <p>`+item.date.slice(0,10)+` - `+item.hour+`</p>
 			   <h2>`+item.text+`</h2>               
              </ion-label>
              <ion-icon slot="end" name="`+item.icon+`"></ion-icon>
@@ -70,7 +70,8 @@ function addEditItem(index = false) {
 	//https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date/getHours
 	//https://norfipc.com/web/como-mostrar-fecha-hora-paginas-web-javascript.html
 	
-	let horaActual = new Date().getHours() + ":" + new Date().getMinutes();
+	//let horaActual = new Date().getHours() + ":" + new Date().getMinutes();
+	let horaActual = "";
 	
     if (index !== false) item = list[index];
     else item = { date:new Date().toISOString(), hour:horaActual, text:"", icon:"radio-button-off" };
@@ -94,7 +95,7 @@ function addEditItem(index = false) {
                     <ion-datetime display-format="D MMM YYYY" max="2050-12-31" value="`+item.date+`"></ion-datetime>            
                 </ion-item>
 				<ion-item>
-					<ion-label position="floating">Seleccionar hora</ion-label>
+					<ion-label position="stacked">Seleccionar hora</ion-label>
         			<ion-datetime class="hour" display-format="HH:mm" value="`+item.hour+`"></ion-datetime>
       			</ion-item>
                 <ion-item>
@@ -105,22 +106,13 @@ function addEditItem(index = false) {
             <ion-segment value="`+item.icon+`">
                 <ion-segment-button value="woman">
                     <ion-icon name="woman"></ion-icon>
-                </ion-segment-button>  
-                <ion-segment-button value="heart">
-                    <ion-icon name="heart"></ion-icon>
-                </ion-segment-button>  
+                </ion-segment-button>                  
                 <ion-segment-button value="happy">
                     <ion-icon name="happy"></ion-icon>
                 </ion-segment-button>
-                <ion-segment-button value="at">
-                    <ion-icon name="at"></ion-icon>
-                </ion-segment-button>
 				<ion-segment-button value="cart">
                     <ion-icon name="cart"></ion-icon>
-                </ion-segment-button>  
-                <ion-segment-button value="car">
-                    <ion-icon name="car"></ion-icon>
-                </ion-segment-button>  
+                </ion-segment-button>
                 <ion-segment-button value="call">
                     <ion-icon name="call"></ion-icon>
                 </ion-segment-button>
@@ -130,12 +122,12 @@ function addEditItem(index = false) {
             <ion-label position="stacked">Seleccionar icono</ion-label>
             <ion-select>
               <ion-select-option value="woman"><ion-icon name="woman"></ion-icon>woman</ion-select-option>
-			  <ion-select-option value="heart"><ion-icon name="heart"></ion-icon>heart</ion-select-option>
 			  <ion-select-option value="happy"><ion-icon name="happy"></ion-icon>happy</ion-select-option>
-			  <ion-select-option value="at"><ion-icon name="at"></ion-icon>at</ion-select-option>
 			  <ion-select-option value="cart"><ion-icon name="cart"></ion-icon>cart</ion-select-option>
-			  <ion-select-option value="car"><ion-icon name="car"></ion-icon>car</ion-select-option>
 			  <ion-select-option value="call"><ion-icon name="call"></ion-icon>call</ion-select-option>
+			  <ion-select-option value="at"><ion-icon name="at"></ion-icon>at</ion-select-option>			  
+			  <ion-select-option value="heart"><ion-icon name="heart"></ion-icon>heart</ion-select-option>
+			  <ion-select-option value="car"><ion-icon name="car"></ion-icon>car</ion-select-option>			  
             </ion-select>
           </ion-item>
 		  
