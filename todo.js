@@ -201,6 +201,15 @@ function deleteItem(index = false) {
     alert.present();
 }
 
+//Compartir tarea
+function share() {
+    let text = "";
+    getList().forEach((task, index) => {
+      text += (index+1) + ". " + task.text + " - " + task.date.slice(0,10) + "\n";
+    });
+    window.plugins.socialsharing.share(text);
+}
+
 //Salir de la aplicacion
 function salirApp(){
 	navigator.app.exitApp();

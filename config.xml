@@ -4,7 +4,7 @@
 	 xmlns:gap = "http://phonegap.com/ns/1.0"
 	 id = "com.jochamo.todolist"
 	 versionCode = "1"
-	 version = "0.0.3" >
+	 version = "0.0.6" >
 
 	<name>ToDo List!</name>
 
@@ -20,5 +20,6 @@
 	
 	<plugin name="cordova-plugin-whitelist" />
 	<plugin name="cordova-plugin-vibration" />
+	<plugin name="cordova-plugin-x-socialsharing" spec="5.4.0" />
 	
 </widget>
