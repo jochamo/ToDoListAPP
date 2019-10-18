@@ -205,7 +205,7 @@ function deleteItem(index = false) {
 function share() {
     let text = "";
     getList().forEach((task, index) => {
-      text += (index+1) + ". " + task.text + " - " + task.date.slice(0,10) + "\n";
+      text += (index+1) + ". " + task.text + " - " + task.date.slice(0,10) + "(" + task.hour + ")\n";
     });
     window.plugins.socialsharing.share(text);
 }
