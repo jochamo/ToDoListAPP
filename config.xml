@@ -14,12 +14,20 @@
 		Jose Chamorro Molina
 	</author>
 
-	<icon src="img/icon.png" />
-
 	<access origin="*" />
 	
 	<plugin name="cordova-plugin-whitelist" />
 	<plugin name="cordova-plugin-vibration" />
+	<plugin name="cordova-plugin-splashscreen" />
 	<plugin name="cordova-plugin-x-socialsharing" spec="5.4.0" />
+	
+	<icon src="img/icon.png" />
+	<splash src="img/splash.png" />
+
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="SplashMaintainAspectRatio" value="false" />
+
+    <preference name="phonegap-version" value="cli-9.0.0" />
 	
 </widget>
